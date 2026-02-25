@@ -80,7 +80,7 @@ web-dev-challenge-1/
 
 ## 🐛 The Bug Challenge
 
-This project contains **20 intentional bugs** across the HTML, CSS, and JavaScript files. The bugs cover a range of categories:
+This project contains **several intentional bugs** across the HTML, CSS, and JavaScript files. The bugs cover a range of categories:
 
 - 🧮 **Calculation errors** — Cart totals that don't add up correctly
 - 🔄 **State management issues** — Items not updating or persisting properly
