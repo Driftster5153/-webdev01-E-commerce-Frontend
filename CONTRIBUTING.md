@@ -56,10 +56,11 @@ git checkout -b fix/issue-16-unicode-hidden-character
 
 ## 🛠 Making Changes
 
-1. **Pick an issue** from [ISSUES.md](ISSUES.md) or the GitHub Issues tab
-2. **Read the full description** — understand the bug behavior, root cause, and affected file
-3. **Fix the bug** in the relevant file(s)
-4. **Test your fix** by opening `index.html` in a browser and verifying the correct behavior
+1. **Pick an issue** from the GitHub Issues tab
+2. **Comment on the issue** to let others know you're working on it
+3. **Read the full description** — understand the bug behavior, root cause, and affected file
+4. **Fix the bug** in the relevant file(s)
+5. **Test your fix** by opening `index.html` in a browser and verifying the correct behavior
 
 ### Testing Locally
 
@@ -67,30 +68,31 @@ git checkout -b fix/issue-16-unicode-hidden-character
 # Option 1: Open directly
 open index.html
 
-# Option 2: Use a local server
+# Option 2: Use a local server (recommended)
 python3 -m http.server 8080
 # Then visit http://localhost:8080
 ```
 
 ---
 
-## 📝 Committing Your Changes
+## 📝 Commit Message Convention
 
-Write clear, descriptive commit messages:
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) standard:
+
+```
+fix(scope): brief description of the fix (#issue-number)
+```
+
+**Examples:**
 
 ```bash
-git add <file>
-git commit -m "fix: resolve cart total string concatenation (Issue #1)"
+git commit -m "fix(cart): resolve total string concatenation by using numeric accumulator (#1)"
+git commit -m "fix(search): add case-insensitive comparison for product filtering (#4)"
+git commit -m "fix(css): replace fixed pixel widths with responsive units in product grid (#3)"
 ```
 
-**Commit message format:**
-
-```
-fix: <short description> (Issue #<number>)
-
-- What was the bug
-- What was changed to fix it
-```
+> [!NOTE]
+> Scope should be the affected area: `cart`, `search`, `modal`, `css`, `data`, `a11y`, etc.
 
 ---
 
@@ -107,39 +109,138 @@ git push origin fix/issue-<number>-<description>
 - Go to your fork on GitHub
 - Click **"Compare & pull request"**
 - Set the base repository to `GDG-Open-Challenge/web-dev-challenge-1` and base branch to `main`
-- Fill in the PR template
+- **You MUST follow the PR format below** — PRs that do not follow this format will be requested to revise
 
-### 3. PR Description Template
+---
+
+## 📋 Required Pull Request Format
+
+Every pull request **must** follow this exact structure. Copy this template and fill in every section. Incomplete submissions will not be reviewed.
 
 ```markdown
-## Bug Fix: Issue #<number>
+## 🐛 Bug Fix: Issue #<number> — <Issue Title>
 
-**Bug:** <One-line description of the incorrect behavior>
+### 📌 Summary
 
-**Root Cause:** <What was causing the bug>
+| Field             | Details                                      |
+|-------------------|----------------------------------------------|
+| **Issue**         | #<number>                                    |
+| **Title**         | <Issue title>                                |
+| **Severity**      | 🟢 Low / 🟡 Medium / 🔴 High               |
+| **Category**      | Bug / UX / Accessibility / Performance       |
+| **File(s)**       | `<file path>`                                |
+| **Function(s)**   | `<function name(s)>`                         |
 
-**Fix:** <What you changed and why>
+---
 
-**Testing:**
+### 🔍 Bug Description
+
+<Explain what the bug does in your own words. Describe the incorrect behavior
+that a user would experience. Be specific — include what you observe vs. what
+is expected.>
+
+**Steps to Reproduce:**
+1. <Step 1>
+2. <Step 2>
+3. <Step 3>
+
+**Expected Behavior:** <What should happen>
+
+**Actual Behavior:** <What currently happens>
+
+---
+
+### 🔬 Root Cause Analysis
+
+<Explain WHY the bug occurs at a technical level. Identify the exact code pattern,
+JavaScript behavior, CSS property, or logic error that causes the issue. This is
+the most important section — demonstrate that you understand the underlying cause,
+not just the symptom.>
+
+---
+
+### ✅ Fix Applied
+
+<Explain your fix and WHY it resolves the root cause. Don't just say "I changed X
+to Y" — explain the reasoning behind your approach and why it's the correct solution.>
+
+---
+
+### 📄 Code Changes
+
+#### Before (Buggy Code)
+
+```js
+// File: <file path>
+// Line(s): <line number(s)>
+<paste the exact original buggy code here>
+```
+
+#### After (Fixed Code)
+
+```js
+// File: <file path>
+// Line(s): <line number(s)>
+<paste your corrected code here>
+```
+
+> If your fix spans multiple files, include a Before/After block for each file.
+
+---
+
+### 🧪 Testing & Verification
+
+Describe how you tested your fix:
+
 - [ ] Verified the fix resolves the described bug
-- [ ] Checked that no other functionality was broken
-- [ ] Tested on desktop and mobile viewports
+- [ ] Confirmed no regressions — other features still work correctly
+- [ ] Tested on Chrome
+- [ ] Tested on Firefox or Safari
+- [ ] Tested on mobile viewport (≤480px)
+- [ ] Tested edge cases (e.g., empty cart, zero quantity, rapid clicks)
 
-**Files Changed:**
-- `<file path>` — <what was changed>
+**Test Evidence:**
+<Describe what you tested and what the results were. Screenshots are encouraged
+but not required.>
+
+---
+
+### 📚 Additional Notes (Optional)
+
+<Any other context, related issues you noticed, alternative approaches considered,
+or references to documentation/articles that helped you understand the bug.>
 ```
 
 ---
 
-## ✅ Contribution Guidelines
+## ⚠️ PR Review Criteria
+
+Your pull request will be evaluated on:
+
+| Criterion | What We Look For |
+|-----------|-----------------|
+| **Correctness** | Does the fix actually resolve the bug without introducing new issues? |
+| **Root Cause Understanding** | Did you identify WHY the bug occurs, not just WHAT to change? |
+| **Code Quality** | Is the fix minimal, clean, and focused on the bug? |
+| **Before/After Clarity** | Are the code changes clearly documented with exact line references? |
+| **Testing** | Did you verify the fix across browsers and edge cases? |
+| **Format Compliance** | Did you follow the required PR template completely? |
+
+> [!CAUTION]
+> PRs that skip sections, leave placeholders unfilled, or bundle multiple bug fixes will be sent back for revision.
+
+---
+
+## ✅ Contribution Rules
 
 | Rule | Details |
 |------|---------|
 | **One bug per PR** | Don't bundle multiple fixes in a single pull request |
-| **No frameworks** | Keep it HTML, CSS, and vanilla JS only — no React, jQuery, etc. |
-| **Don't reformat code** | Fix only the bug; don't restructure or beautify the surrounding code |
+| **No frameworks** | Keep it HTML, CSS, and vanilla JS only — no React, jQuery, Tailwind, etc. |
+| **Don't reformat code** | Fix only the bug; don't restructure, rename, or beautify the surrounding code |
+| **Don't add dependencies** | No npm packages, CDN libraries, or external tools |
 | **Test before submitting** | Verify your fix works in at least 2 browsers |
-| **Be descriptive** | Explain what the bug was and why your fix works |
+| **Follow the PR template** | Every section must be filled out completely |
 
 ---
 
