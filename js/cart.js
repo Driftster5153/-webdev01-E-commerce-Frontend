@@ -39,11 +39,13 @@ function addToCart(pId) {
     _showToast(_p.n + ' added to cart!');
 }
 
-function removeFromCart(itemName) {
-    _cx = _cx.filter(function (item) { return item.n !== itemName });
-    _saveCart();
-    _renderCart();
-    _updateBadge();
+function removeFromCart(index) {
+    if (index >= 0 && index < _cx.length) {
+        _cx.splice(index, 1); 
+        _saveCart();
+        _renderCart();
+        _updateBadge(); 
+    }
 }
 
 function updateQty(idx, delta) {
@@ -51,12 +53,12 @@ function updateQty(idx, delta) {
         _cx[idx].qty += delta;
         
         if (_cx[idx].qty <= 0) {
-            _cx.splice(idx, 1);
+            removeFromCart(idx); 
+        } else {
+            _saveCart();
+            _renderCart();
+            _updateBadge();
         }
-        
-        _saveCart();
-        _renderCart();
-        _updateBadge();
     }
 }
 
@@ -112,7 +114,7 @@ function _renderCart() {
         _h +=           '<button class="qty-btn" onclick="updateQty(' + i + ',1)">+</button>';
         _h +=       '</div>';
         _h +=   '</div>';
-        _h +=   '<button class="cart-remove-btn" onclick="removeFromCart(\'' + _it.n.replace(/'/g, "\\'") + '\')">×</button>';
+        _h +=   '<button class="cart-remove-btn" onclick="removeFromCart(' + i + ')">×</button>';
         _h += '</div>';
     }
 
